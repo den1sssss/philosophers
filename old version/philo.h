@@ -5,23 +5,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-# include <string.h>
-// #include "libft/libft.h"
+#include "libft/libft.h"
 
 typedef struct s_phil
 {
-	pthread_mutex_t	*left_vilka;
-	pthread_mutex_t	*right_vilka;
-	int		id;
-	// int				last_eat;
-	// int				limit;
-	// int				count_eat;
-	int times_need_to_eat;
-	pthread_mutex_t	*writem;
-	pthread_mutex_t	*check;
-	pthread_t		self;
-	struct timeval	tek;
-	struct timeval	last;
+	pthread_mutex_t	*min_vilka;
+	pthread_mutex_t	*max_vilka;
+	pthread_t		id;
 	// struct timeval	tek; tek vremya
 	// struct timeval	last; kogda last raz haval
 	// int				n; nomer filosofa
@@ -35,20 +25,11 @@ typedef struct s_table
 	int				t_sleep;
 	int				t_die;
 	int				num;
-	int				times_need_to_eat;
-	int				done;
+	int				rep; //skoko raz havat nado
 	pthread_mutex_t	*vilki;
-	pthread_mutex_t	writem;
-	pthread_mutex_t	*checks;
 	// pthread_mutex_t	printm;mutex na printf
 	t_phil			*philos;
 	struct timeval	start;
-	// pthread_mutex_t	smb_dead;
 }				t_table;
-
-
-size_t	ft_strlen(const char *str);
-int	ft_atoi(const char *str);
-void	*routine(void *philo);
 
 #endif
