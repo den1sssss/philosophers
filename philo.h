@@ -20,7 +20,7 @@ typedef struct s_phil
 	pthread_mutex_t	*writem;
 	pthread_mutex_t	*check;
 	pthread_t		self;
-	struct timeval	tek;
+	struct timeval	current_time;
 	struct timeval	last;
 	// struct timeval	tek; tek vremya
 	// struct timeval	last; kogda last raz haval
@@ -50,5 +50,9 @@ typedef struct s_table
 size_t	ft_strlen(const char *str);
 int	ft_atoi(const char *str);
 void	*routine(void *philo);
+void eating_process(t_phil *phil);
+void procrastination(t_phil *phil);
+void ft_sleep(t_phil *phil, int milisec);
+void is_smb_dead(t_table *table);
 
 #endif

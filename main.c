@@ -128,7 +128,7 @@ int main(int argc,char **argv)
 			return (0);
 	if (!philos_creator(&table))
 			return (0);
-	//is_smb_dead(&table);
+	is_smb_dead(&table);
 	//cleaning(&table);
 	return (0);
 }
