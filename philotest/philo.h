@@ -27,6 +27,7 @@ typedef struct s_phil
 	// int				n; nomer filosofa
 	// int				rep; skolko  raz pohavat
 	struct s_table	*table;
+	time_t			start_time;
 }				t_phil;
  
 typedef struct s_table
@@ -54,13 +55,7 @@ void eating_process(t_phil *phil);
 void procrastination(t_phil *phil);
 void ft_sleep(t_phil *phil, int milisec);
 void is_smb_dead(t_table *table);
-void parser(int argc, char **argv, t_table *table);
-int	exit_error(char const *str);
-int philo_init(t_table *table, int i);
-int philos_creator(t_table *table);
-int mutex_creator(t_table *table);
-int ft_check_input(t_table *table,int argc);
-void ft_free(t_table *table);
+long	ft_time(void);
 
 
 #endif

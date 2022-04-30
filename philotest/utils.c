@@ -26,10 +26,8 @@ int	ft_atoi(const char *str)
 	}
 	else if (*str == '+')
 		str++;
-	while (*str)
+	while (*str && *str >= '0' && *str <= '9')
 	{
-		if(!(*str >= '0' && *str <= '9'))
-			return (0);
 		sum = sum * 10 + *str - '0';
 		str++;
 	}

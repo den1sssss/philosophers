@@ -3,20 +3,14 @@ int	exit_error(char const *str)
 {
 	if (str)
 		write(1, str, ft_strlen(str));
-	return (0);
-}
-void ft_free(t_table *table)
-{
-	free(table->checks);
-	free(table->vilki);
-	free(table->philos);
+	return (1);
 }
 int ft_check_input(t_table *table,int argc)
 {
 	if(argc == 5)
 	{
-		if(table->num < 1 || table->t_die <  1 || table->t_eat < 1 || \
-			table->t_sleep < 1)
+		if(table->num < 1 || table->t_die <  60 || table->t_eat < 60 || \
+			table->t_sleep < 60)
 		{
 			printf("Check your input!\n");
 			return (1);
@@ -24,8 +18,8 @@ int ft_check_input(t_table *table,int argc)
 	}
 	if(argc == 6)
 	{
-		if(table->num < 1 || table->t_die <  1 || table->t_eat < 1 || \
-			table->t_sleep < 1 || table->times_need_to_eat < 1)
+		if(table->num < 1 || table->t_die <  60 || table->t_eat < 60 || \
+			table->t_sleep < 60 || table->times_need_to_eat < 1)
 		{
 			printf("Check your input!\n");
 			return (1);
@@ -71,7 +65,7 @@ int mutex_creator(t_table *table)
 			return (0);
 		if (pthread_mutex_init(table->checks + i, NULL))
 			return (0);
-		++i; 
+		++i;
 	}
 	return (1);
 }
@@ -135,6 +129,6 @@ int main(int argc,char **argv)
 	if (!philos_creator(&table))
 			return (0);
 	is_smb_dead(&table);
-	ft_free(&table);
+	//cleaning(&table);
 	return (0);
 }
