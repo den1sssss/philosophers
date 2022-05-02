@@ -1,58 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dshirely <dshirely@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/30 20:00:34 by dshirely          #+#    #+#             */
+/*   Updated: 2022/05/02 14:29:18 by dshirely         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
+
 int	exit_error(char const *str)
 {
 	if (str)
 		write(1, str, ft_strlen(str));
 	return (0);
 }
-void ft_free(t_table *table)
+
+void	ft_free(t_table *table)
 {
 	free(table->checks);
 	free(table->vilki);
 	free(table->philos);
 }
-int ft_check_input(t_table *table,int argc)
+
+int	ft_check_input(t_table *table,int argc)
 {
-	if(argc == 5)
+	if (argc == 5)
 	{
-		if(table->num < 1 || table->t_die <  1 || table->t_eat < 1 || \
+		if (table->num < 1 || table->t_die <  1 || table->t_eat < 1 || \
 			table->t_sleep < 1)
 		{
 			printf("Check your input!\n");
 			return (1);
-		}
+		}	
 	}
-	if(argc == 6)
+	if (argc == 6)
 	{
-		if(table->num < 1 || table->t_die <  1 || table->t_eat < 1 || \
+		if (table->num < 1 || table->t_die <  1 || table->t_eat < 1 || \
 			table->t_sleep < 1 || table->times_need_to_eat < 1)
 		{
 			printf("Check your input!\n");
 			return (1);
 		}
 	}
-	if(argc <5 || argc > 6)
+	if (argc <5 || argc > 6)
 		{
 			printf("Check your input!\n");
 			return (1);
 		}
 	return (0);
 }
-void parser(int argc, char **argv, t_table *table)
+
+void	parser(int argc, char **argv, t_table *table)
 {
-	table->num=ft_atoi(argv[1]);
-	table->t_die=ft_atoi(argv[2]);
-	table->t_eat=ft_atoi(argv[3]);
-	table->t_sleep=ft_atoi(argv[4]);
-	if(argc == 6)
+	table->num = ft_atoi(argv[1]);
+	table->t_die = ft_atoi(argv[2]);
+	table->t_eat = ft_atoi(argv[3]);
+	table->t_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
 	{
-		table->times_need_to_eat =ft_atoi(argv[5]);
+		table->times_need_to_eat = ft_atoi(argv[5]);
 	}
-	else if(argc == 5)
-		table->times_need_to_eat=-1;
+	else if (argc == 5)
+		table->times_need_to_eat = -1;
 }
 
-int mutex_creator(t_table *table)
+int	mutex_creator(t_table *table)
 {
 	int	i;
 
@@ -75,30 +91,32 @@ int mutex_creator(t_table *table)
 	}
 	return (1);
 }
-int philo_init(t_table *table, int i)
+
+int	philo_init(t_table *table, int i)
 {
-	table->philos[i].table=table;
-	table->philos[i].check=table->checks+i;
-	table->philos[i].writem=&table->writem;
-	table->philos[i].id=i+1;
-	table->philos[i].left_vilka=table->vilki+i;
-	table->philos[i].times_need_to_eat=table->times_need_to_eat;
-	table->philos[i].last=table->start;
+	table->philos[i].table = table;
+	table->philos[i].check = table->checks+i;
+	table->philos[i].writem = &table->writem;
+	table->philos[i].id = i+1;
+	table->philos[i].left_vilka = table->vilki+i;
+	table->philos[i].times_need_to_eat = table->times_need_to_eat;
+	table->philos[i].last = table->start;
 	if(i != table->num - 1)
-		table->philos[i].right_vilka=table->vilki + i + 1;
+		table->philos[i].right_vilka = table->vilki + i + 1;
 	else
-		table->philos[i].right_vilka=table->vilki;
+		table->philos[i].right_vilka = table->vilki;
 	if (pthread_create(&(table->philos[i].self), NULL, routine, \
 	(void *)((table->philos) + i)))
 		return (0);
 	return (1);
 }
-int philos_creator(t_table *table)
+
+int	philos_creator(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	table->philos=(t_phil *)malloc(sizeof(t_phil) * table->num);
+	table->philos = (t_phil *)malloc(sizeof(t_phil) * table->num);
 	if(!table->philos)
 		return(0);
 	i = 0;
@@ -117,17 +135,16 @@ int philos_creator(t_table *table)
 	}
 	usleep(100);
 	return (1);
-
-
 }
-int main(int argc,char **argv)
+
+int	main(int argc,char **argv)
 {
 	t_table table;
 
 	memset(&table,0,sizeof(t_table));
-	if(argc == 5 || argc == 6)
-		parser(argc,argv,&table);
-	if(ft_check_input(&table,argc))
+	if (argc == 5 || argc == 6)
+		parser(argc, argv, &table);
+	if (ft_check_input(&table, argc))
 		return (exit_error("Incorrect input!\n"));
 	pthread_mutex_init(&(table.writem), NULL);
 	if (!mutex_creator(&table))
