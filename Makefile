@@ -6,7 +6,7 @@
 #    By: dshirely <dshirely@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/30 15:52:03 by dshirely          #+#    #+#              #
-#    Updated: 2022/04/30 16:18:55 by dshirely         ###   ########.fr        #
+#    Updated: 2022/05/02 19:00:17 by dshirely         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,10 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
+
+
+
+
 # SRCS		=*.c
 
 # OBJ			=	${SRCS:.c=.o}
@@ -40,7 +44,7 @@ re: fclean all
 
 # NAME		=	philo
 
-# # HEADER		=	philo.h
+# HEADER		=	philo.h
 
 # all:		 $(HEADER) $(NAME)
 
