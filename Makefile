@@ -6,55 +6,39 @@
 #    By: dshirely <dshirely@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/30 15:52:03 by dshirely          #+#    #+#              #
-#    Updated: 2022/05/02 19:00:17 by dshirely         ###   ########.fr        #
+#    Updated: 2022/05/03 15:28:06 by dshirely         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS=-Werror -Wextra -Wall
-NAME=philo
-SRC=*.c
+NAME = philo
 
+INC 	= philo.h
 
-all:
-	@cc $(SRC) -o $(NAME) $(FLAGS)
+SRC		=	main.c\
+			routine.c\
+			time.c\
+			utils.c\
+
+CC 		= gcc
+
+FLAGS	= -Wall -Wextra -Werror -pthread
+
+OBJS 	= $(SRC:.c=.o)
+
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(SRC) -o $(NAME)
+
+all: $(NAME) $(OBJS) $(INC)
+
+%.o: %.c $(INC)
+		$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	# @make -C libft/ clean
+	rm -rf $(OBJS)
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
-
-
-
-
-# SRCS		=*.c
-
-# OBJ			=	${SRCS:.c=.o}
-
-# CC			=	cc
-
-# REMOVE		=	rm -f
-
-# # CFLAGS		=	-Wall -Werror -Wextra -pthread
-
-# NAME		=	philo
-
-# HEADER		=	philo.h
-
-# all:		 $(HEADER) $(NAME)
-
-# $(NAME):	$(OBJ) $(HEADER)
-# 			$(CC) ${OBJ} -o ${NAME} ${CFLAGS}
-# clean:		
-# 			@$(REMOVE) $(OBJ)
-# fclean:		clean
-# 			@$(REMOVE) $(NAME)
-
-# re:			fclean all
-
-# .PHONY:		all clean fclean re
